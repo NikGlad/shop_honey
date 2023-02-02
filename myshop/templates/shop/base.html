@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+<title>{% block title %}Главная{% endblock %}</title>
+<link href="{% static "/css/base.css" %}" rel="stylesheet">
+
+</head>
+<body>
+
+<div id="header">
+<a href="/" class="logo">Продукция</a>
+<a href="{% url 'myshop:contacts' %}" class="logo">Контакты</a>
+<a href="{% url 'myshop:about' %}" class="logo">О пользе мёда</a>
+
+
+
+</div>
+<div id="med">
+    <h1>
+Уважаемые покупатели! <br> К сожалению мёда сейчас нет в наличии.<br>
+    Новый урожай ожидается в мае этого года.
+    </h1>
+</div>
+<div id="subheader">
+    <div class="cart">
+        {% with total_items=cart|length %}
+        {% if cart|length > 0 %}
+        В корзине
+        <a href="{% url 'cart:cart_detail' %}">
+             товаров на сумму {{ cart.get_total_price }}р
+        </a>
+        {% else %}
+        Корзина пустая
+        {% endif %}
+        {% endwith %}
+
+    </div>
+</div>
+<div id="content">
+{% block content %}{% endblock %}
+</div>
+
+</body>
+</html>
